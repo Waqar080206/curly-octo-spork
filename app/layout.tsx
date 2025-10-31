@@ -7,8 +7,8 @@ import { ThemeToggle } from '@/components/ui/theme-toggle'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Hero Component Demo',
-  description: 'A beautiful hero component with animated gradients',
+  title: 'Restaurant Insights - Zomato NCR Data Analysis',
+  description: 'SQL-Driven Analysis & ML Rating Prediction on Zomato NCR Data',
 }
 
 export default function RootLayout({

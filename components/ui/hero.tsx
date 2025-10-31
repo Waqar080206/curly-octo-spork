@@ -11,6 +11,7 @@ interface HeroAction {
   href: string
   variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "white"
   size?: "default" | "sm" | "lg" | "xl" | "icon"
+  neon?: boolean
 }
 
 interface HeroProps extends React.HTMLAttributes<HTMLElement> {
