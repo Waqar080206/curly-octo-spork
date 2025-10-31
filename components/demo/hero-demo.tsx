@@ -27,7 +27,7 @@ function HeroDemo() {
       ]}
       titleClassName="text-5xl md:text-6xl font-extrabold"
       subtitleClassName="text-lg md:text-xl max-w-[600px]"
-      actionsClassName="mt-8"
+      actionsClassName="mt-9"
     />
   )
 }
