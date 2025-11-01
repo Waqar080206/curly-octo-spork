@@ -1,9 +1,8 @@
--- DBMS Project: Data Insertion Script
--- Load data from CSV into normalized database structure
+
 
 USE restaurant_db;
 
--- First, load data into a temporary table to process the CSV
+
 CREATE TEMPORARY TABLE temp_restaurants (
     name VARCHAR(255),
     category VARCHAR(500),
@@ -22,15 +21,7 @@ CREATE TEMPORARY TABLE temp_restaurants (
     ambience_features TEXT
 );
 
--- Load CSV data (adjust path as needed)
--- LOAD DATA INFILE 'DelhiNCR Restaurants.csv'
--- INTO TABLE temp_restaurants
--- FIELDS TERMINATED BY ','
--- ENCLOSED BY '"'
--- LINES TERMINATED BY '\n'
--- IGNORE 1 ROWS;
 
--- Insert sample data for demonstration
 INSERT INTO temp_restaurants VALUES
 ('Rustom\'s', 'Parsi, Street Food, North Indian, Desserts, Beverages', 2100, 'ITO, New Delhi', 4.9, 1885, 4.4, 1844, 'https://www.zomato.com/ncr/rustoms-ito-new-delhi', 'Delhi Parsi Anjuman, LNJP Colony, Bahadur Shah Zafar Road', '919991234567', 28.638167, 77.240472, 'Parsi Cuisine, Traditional Dishes', 'Heritage, Authentic'),
 ('Cafe Lota', 'Cafe, South Indian, North Indian, Beverages', 1200, 'Pragati Maidan, New Delhi', 4.9, 3748, 3.9, 37, 'https://www.zomato.com/ncr/cafe-lota-pragati-maidan-new-delhi', 'National Crafts Museum, Gate 2, Bhairon Marg', '917839123456', 28.613429, 77.242471, 'Pondicherry Fish Curry, Coconut Rabdi', 'Artistic Decor, Natural Ambience'),

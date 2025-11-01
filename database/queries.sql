@@ -1,13 +1,8 @@
--- DBMS Project: Analytics Queries for Zomato Delhi NCR Dashboard
--- Complex SQL queries for restaurant data analysis
+
 
 USE restaurant_db;
 
--- ==========================================
--- 1. LOCALITY ANALYSIS
--- ==========================================
 
--- Average rating by locality with restaurant count
 SELECT 
     l.locality_name,
     l.city,
@@ -24,11 +19,7 @@ HAVING restaurant_count >= 3
 ORDER BY avg_dining_rating DESC, restaurant_count DESC
 LIMIT 15;
 
--- ==========================================
--- 2. CUISINE ANALYSIS
--- ==========================================
 
--- Top cuisines with performance metrics
 SELECT 
     c.cuisine_name,
     COUNT(DISTINCT r.restaurant_id) as restaurant_count,
@@ -45,11 +36,7 @@ HAVING restaurant_count >= 5
 ORDER BY restaurant_count DESC, avg_rating DESC
 LIMIT 20;
 
--- ==========================================
--- 3. PRICING ANALYSIS
--- ==========================================
 
--- Cost vs rating analysis with price bands
 SELECT 
     CASE 
         WHEN pricing_for_2 < 500 THEN 'Budget (< ₹500)'
@@ -68,11 +55,7 @@ WHERE pricing_for_2 IS NOT NULL AND dining_rating IS NOT NULL
 GROUP BY price_segment
 ORDER BY avg_cost;
 
--- ==========================================
--- 4. RATING DISTRIBUTION ANALYSIS
--- ==========================================
 
--- Rating bands with detailed metrics
 SELECT 
     CASE 
         WHEN dining_rating < 2.0 THEN 'Poor (< 2.0)'
@@ -91,11 +74,7 @@ WHERE dining_rating IS NOT NULL
 GROUP BY rating_category
 ORDER BY MIN(dining_rating);
 
--- ==========================================
--- 5. CITY-WISE PERFORMANCE
--- ==========================================
 
--- City comparison with comprehensive metrics
 SELECT 
     l.city,
     COUNT(DISTINCT r.restaurant_id) as total_restaurants,
@@ -111,11 +90,7 @@ WHERE r.dining_rating IS NOT NULL
 GROUP BY l.city
 ORDER BY total_restaurants DESC;
 
--- ==========================================
--- 6. HIGH PERFORMING RESTAURANTS
--- ==========================================
 
--- Top restaurants by multiple criteria
 SELECT 
     r.name,
     l.locality_name,
@@ -139,11 +114,7 @@ GROUP BY r.restaurant_id, r.name, l.locality_name, l.city, r.dining_rating, r.di
 ORDER BY r.dining_rating DESC, r.dining_review_count DESC
 LIMIT 25;
 
--- ==========================================
--- 7. DELIVERY VS DINING ANALYSIS
--- ==========================================
 
--- Compare dining and delivery ratings
 SELECT 
     'Overall' as category,
     COUNT(CASE WHEN dining_rating IS NOT NULL THEN 1 END) as restaurants_with_dining,
@@ -169,11 +140,7 @@ WHERE r.dining_rating IS NOT NULL OR r.delivery_rating IS NOT NULL
 GROUP BY l.city
 ORDER BY category;
 
--- ==========================================
--- 8. MONTHLY TRENDS (Simulated Data)
--- ==========================================
 
--- Simulated monthly registration trends
 SELECT 
     DATE_FORMAT(created_at, '%Y-%m') as month,
     COUNT(*) as new_restaurants,
@@ -184,11 +151,7 @@ WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
 GROUP BY DATE_FORMAT(created_at, '%Y-%m')
 ORDER BY month;
 
--- ==========================================
--- 9. ADVANCED ANALYTICS QUERIES
--- ==========================================
 
--- Cuisine popularity by city
 SELECT 
     l.city,
     c.cuisine_name,
@@ -205,7 +168,6 @@ HAVING restaurant_count >= 2
 ORDER BY l.city, popularity_rank
 LIMIT 50;
 
--- Price-performance ratio analysis
 SELECT 
     r.name,
     l.locality_name,

@@ -1,10 +1,9 @@
--- DBMS Project: Zomato Restaurants in Delhi NCR
--- Database Schema Definition
+
 
 CREATE DATABASE IF NOT EXISTS restaurant_db;
 USE restaurant_db;
 
--- Main Restaurants Table
+
 CREATE TABLE Restaurants (
     restaurant_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
@@ -27,13 +26,13 @@ CREATE TABLE Restaurants (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Cuisines Table (Normalized)
+
 CREATE TABLE Cuisines (
     cuisine_id INT PRIMARY KEY AUTO_INCREMENT,
     cuisine_name VARCHAR(100) UNIQUE NOT NULL
 );
 
--- Restaurant-Cuisine Mapping (Many-to-Many)
+
 CREATE TABLE Restaurant_Cuisines (
     restaurant_id INT,
     cuisine_id INT,
@@ -42,7 +41,7 @@ CREATE TABLE Restaurant_Cuisines (
     FOREIGN KEY (cuisine_id) REFERENCES Cuisines(cuisine_id) ON DELETE CASCADE
 );
 
--- Localities Table
+
 CREATE TABLE Localities (
     locality_id INT PRIMARY KEY AUTO_INCREMENT,
     locality_name VARCHAR(255) UNIQUE NOT NULL,
@@ -50,12 +49,12 @@ CREATE TABLE Localities (
     area_type ENUM('Central', 'Suburban', 'Commercial', 'Residential') DEFAULT 'Residential'
 );
 
--- Add foreign key to Restaurants table
+
 ALTER TABLE Restaurants 
 ADD COLUMN locality_id INT,
 ADD FOREIGN KEY (locality_id) REFERENCES Localities(locality_id);
 
--- Reviews Table (for future expansion)
+
 CREATE TABLE Reviews (
     review_id INT PRIMARY KEY AUTO_INCREMENT,
     restaurant_id INT,
@@ -66,7 +65,7 @@ CREATE TABLE Reviews (
     FOREIGN KEY (restaurant_id) REFERENCES Restaurants(restaurant_id) ON DELETE CASCADE
 );
 
--- Indexes for better performance
+
 CREATE INDEX idx_restaurant_rating ON Restaurants(dining_rating);
 CREATE INDEX idx_restaurant_locality ON Restaurants(locality);
 CREATE INDEX idx_restaurant_pricing ON Restaurants(pricing_for_2);
