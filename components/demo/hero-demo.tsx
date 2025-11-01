@@ -14,13 +14,13 @@ function HeroDemo() {
       actions={[
         {
           label: "Dashboard",
-          href: "#",
+          href: "/dashboard",
           variant: "outline",
           size: "xl"
         },
         {
           label: "ML Model",
-          href: "#",
+          href: "https://ncr-zomato-rating-predictor.vercel.app/",
           variant: "default",
           size: "xl"
         }
