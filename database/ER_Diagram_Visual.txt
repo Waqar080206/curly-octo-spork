@@ -1,0 +1,237 @@
+================================================================================
+                    ZOMATO NCR RESTAURANT DATABASE - ER DIAGRAM
+================================================================================
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              ENTITY RELATIONSHIP DIAGRAM                     │
+│                                 restaurant_db                               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────┐         ┌─────────────────────────┐
+│       LOCALITIES        │         │       CUISINES          │
+├─────────────────────────┤         ├─────────────────────────┤
+│ PK: locality_id (INT)   │         │ PK: cuisine_id (INT)    │
+│     locality_name       │         │     cuisine_name        │
+│     city                │         │                         │
+│     area_type (ENUM)    │         │                         │
+└─────────────────────────┘         └─────────────────────────┘
+            │                                       │
+            │ 1                                     │ 1
+            │                                       │
+            │ has                                   │ categorizes
+            │                                       │
+            │ M                                     │ M
+            ▼                                       ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              RESTAURANTS                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ PK: restaurant_id (INT AUTO_INCREMENT)                                     │
+│ FK: locality_id → LOCALITIES(locality_id)                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Basic Information:                                                          │
+│   • name (VARCHAR 255)                                                     │
+│   • category (VARCHAR 500)                                                 │
+│   • website (VARCHAR 500)                                                  │
+│   • address (TEXT)                                                         │
+│   • phone_no (VARCHAR 20)                                                  │
+│                                                                             │
+│ Location Data:                                                              │
+│   • locality (VARCHAR 255)                                                 │
+│   • latitude (DECIMAL 10,8)                                                │
+│   • longitude (DECIMAL 11,8)                                               │
+│                                                                             │
+│ Business Metrics:                                                           │
+│   • pricing_for_2 (INT)                                                    │
+│   • dining_rating (DECIMAL 3,2)                                            │
+│   • dining_review_count (INT)                                              │
+│   • delivery_rating (DECIMAL 3,2)                                          │
+│   • delivery_rating_count (INT)                                            │
+│                                                                             │
+│ Features:                                                                   │
+│   • known_for (TEXT)                                                       │
+│   • ambience_features (TEXT)                                               │
+│                                                                             │
+│ Timestamps:                                                                 │
+│   • created_at (TIMESTAMP)                                                 │
+│   • updated_at (TIMESTAMP)                                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ 1
+                                    │
+                                    │ serves
+                                    │
+                                    │ M
+                                    ▼
+            ┌─────────────────────────────────────────────────────┐
+            │              RESTAURANT_CUISINES                    │
+            │                (Junction Table)                     │
+            ├─────────────────────────────────────────────────────┤
+            │ PK: (restaurant_id, cuisine_id)                    │
+            │ FK: restaurant_id → RESTAURANTS(restaurant_id)     │
+            │ FK: cuisine_id → CUISINES(cuisine_id)              │
+            └─────────────────────────────────────────────────────┘
+                                    │
+                                    │ 1
+                                    │
+                                    │ receives
+                                    │
+                                    │ M
+                                    ▼
+            ┌─────────────────────────────────────────────────────┐
+            │                   REVIEWS                           │
+            │              (Future Expansion)                     │
+            ├─────────────────────────────────────────────────────┤
+            │ PK: review_id (INT AUTO_INCREMENT)                 │
+            │ FK: restaurant_id → RESTAURANTS(restaurant_id)     │
+            ├─────────────────────────────────────────────────────┤
+            │ • rating (DECIMAL 3,2)                             │
+            │ • review_text (TEXT)                               │
+            │ • review_date (DATE)                               │
+            │ • reviewer_name (VARCHAR 100)                      │
+            └─────────────────────────────────────────────────────┘
+
+================================================================================
+                                RELATIONSHIPS
+================================================================================
+
+1. LOCALITIES → RESTAURANTS (One-to-Many)
+   ┌─────────────┐    1:M    ┌─────────────┐
+   │ LOCALITIES  │ ────────→ │ RESTAURANTS │
+   └─────────────┘           └─────────────┘
+   • One locality can have multiple restaurants
+   • Each restaurant belongs to exactly one locality
+
+2. RESTAURANTS ↔ CUISINES (Many-to-Many via RESTAURANT_CUISINES)
+   ┌─────────────┐    M:M    ┌─────────────┐
+   │ RESTAURANTS │ ←────────→ │  CUISINES   │
+   └─────────────┘           └─────────────┘
+   • One restaurant can serve multiple cuisines
+   • One cuisine can be served by multiple restaurants
+
+3. RESTAURANTS → REVIEWS (One-to-Many)
+   ┌─────────────┐    1:M    ┌─────────────┐
+   │ RESTAURANTS │ ────────→ │   REVIEWS   │
+   └─────────────┘           └─────────────┘
+   • One restaurant can have multiple reviews
+   • Each review belongs to exactly one restaurant
+
+================================================================================
+                            NORMALIZATION ANALYSIS
+================================================================================
+
+FIRST NORMAL FORM (1NF): ✓
+├── All attributes contain atomic values
+├── No repeating groups or arrays
+└── Each row is uniquely identifiable
+
+SECOND NORMAL FORM (2NF): ✓
+├── Meets 1NF requirements
+├── All non-key attributes fully depend on primary key
+└── No partial dependencies exist
+
+THIRD NORMAL FORM (3NF): ✓
+├── Meets 2NF requirements
+├── No transitive dependencies
+├── Cuisines separated into normalized table
+└── Localities separated into normalized table
+
+================================================================================
+                               CONSTRAINTS
+================================================================================
+
+PRIMARY KEYS:
+├── RESTAURANTS: restaurant_id (AUTO_INCREMENT)
+├── CUISINES: cuisine_id (AUTO_INCREMENT)
+├── LOCALITIES: locality_id (AUTO_INCREMENT)
+├── RESTAURANT_CUISINES: (restaurant_id, cuisine_id) COMPOSITE
+└── REVIEWS: review_id (AUTO_INCREMENT)
+
+FOREIGN KEYS:
+├── RESTAURANTS.locality_id → LOCALITIES.locality_id
+├── RESTAURANT_CUISINES.restaurant_id → RESTAURANTS.restaurant_id
+├── RESTAURANT_CUISINES.cuisine_id → CUISINES.cuisine_id
+└── REVIEWS.restaurant_id → RESTAURANTS.restaurant_id
+
+UNIQUE CONSTRAINTS:
+├── CUISINES.cuisine_name
+└── LOCALITIES.locality_name
+
+CHECK CONSTRAINTS:
+├── dining_rating BETWEEN 0.0 AND 5.0
+├── delivery_rating BETWEEN 0.0 AND 5.0
+├── pricing_for_2 > 0
+└── area_type IN ('Central', 'Suburban', 'Commercial', 'Residential')
+
+================================================================================
+                                 INDEXES
+================================================================================
+
+PRIMARY INDEXES (Automatic):
+├── RESTAURANTS(restaurant_id)
+├── CUISINES(cuisine_id)
+├── LOCALITIES(locality_id)
+└── REVIEWS(review_id)
+
+SECONDARY INDEXES (Performance):
+├── idx_restaurant_rating ON RESTAURANTS(dining_rating)
+├── idx_restaurant_locality ON RESTAURANTS(locality)
+├── idx_restaurant_pricing ON RESTAURANTS(pricing_for_2)
+├── idx_restaurant_city ON RESTAURANTS(city)
+└── idx_locality_city ON LOCALITIES(city)
+
+COMPOSITE INDEXES:
+└── PRIMARY KEY ON RESTAURANT_CUISINES(restaurant_id, cuisine_id)
+
+================================================================================
+                              BUSINESS RULES
+================================================================================
+
+1. Data Integrity:
+   ├── Each restaurant must have a unique identifier
+   ├── Ratings must be between 0.0 and 5.0
+   ├── Pricing must be positive values
+   └── All foreign key relationships enforced
+
+2. Normalization Rules:
+   ├── Cuisines stored once, referenced multiple times
+   ├── Localities normalized with city and area type
+   ├── No redundant data storage
+   └── Consistent data representation
+
+3. Scalability Rules:
+   ├── Modular design supports future expansion
+   ├── Junction tables enable flexible relationships
+   ├── Timestamp tracking for audit trails
+   └── Extensible schema for new features
+
+================================================================================
+                            SAMPLE QUERIES
+================================================================================
+
+-- Top cuisines by restaurant count
+SELECT c.cuisine_name, COUNT(*) as restaurant_count
+FROM Cuisines c
+JOIN Restaurant_Cuisines rc ON c.cuisine_id = rc.cuisine_id
+GROUP BY c.cuisine_name
+ORDER BY restaurant_count DESC;
+
+-- Average rating by locality
+SELECT l.locality_name, AVG(r.dining_rating) as avg_rating
+FROM Localities l
+JOIN Restaurants r ON l.locality_id = r.locality_id
+GROUP BY l.locality_name
+ORDER BY avg_rating DESC;
+
+-- Price segment analysis
+SELECT 
+  CASE 
+    WHEN pricing_for_2 < 500 THEN 'Budget'
+    WHEN pricing_for_2 BETWEEN 500 AND 1000 THEN 'Mid-Range'
+    ELSE 'Premium'
+  END as segment,
+  COUNT(*) as count,
+  AVG(dining_rating) as avg_rating
+FROM Restaurants
+GROUP BY segment;
+
+================================================================================
