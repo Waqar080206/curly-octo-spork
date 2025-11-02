@@ -233,7 +233,7 @@ streamlit run database/dashboard.py
 
 ## 📈 Performance Metrics
 
-- **Database Size**: 6,694+ restaurant records
+- **Database Size**: 1,943 unique restaurant records
 - **Query Performance**: <100ms average response time
 - **Frontend Performance**: 95+ Lighthouse score
 - **Data Accuracy**: 99.5% data integrity maintained

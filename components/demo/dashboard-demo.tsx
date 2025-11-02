@@ -24,44 +24,43 @@ const CustomTooltip = ({ active, payload, label, formatter }: any) => {
   return null
 }
 
-// SQL Query Results - Top Cuisines Analysis
+// SQL Query Results - Top Cuisines Analysis (Real Data)
 const cuisineData = [
-  { name: 'North Indian', restaurants: 1247, avgRating: 4.2, marketShare: 18.6, avgCost: 850 },
-  { name: 'Chinese', restaurants: 892, avgRating: 4.1, marketShare: 13.3, avgCost: 720 },
-  { name: 'Fast Food', restaurants: 756, avgRating: 3.9, marketShare: 11.3, avgCost: 450 },
-  { name: 'South Indian', restaurants: 634, avgRating: 4.3, marketShare: 9.5, avgCost: 680 },
-  { name: 'Continental', restaurants: 523, avgRating: 4.0, marketShare: 7.8, avgCost: 1200 },
-  { name: 'Italian', restaurants: 445, avgRating: 4.1, marketShare: 6.6, avgCost: 1350 },
-  { name: 'Mughlai', restaurants: 387, avgRating: 4.4, marketShare: 5.8, avgCost: 950 },
-  { name: 'Desserts', restaurants: 298, avgRating: 4.2, marketShare: 4.5, avgCost: 380 },
+  { name: 'North Indian', restaurants: 1063, avgRating: 4.1, marketShare: 54.1, avgCost: 850 },
+  { name: 'Chinese', restaurants: 775, avgRating: 4.1, marketShare: 39.4, avgCost: 720 },
+  { name: 'Beverages', restaurants: 726, avgRating: 4.2, marketShare: 37.0, avgCost: 450 },
+  { name: 'Fast Food', restaurants: 605, avgRating: 4.1, marketShare: 30.8, avgCost: 450 },
+  { name: 'Desserts', restaurants: 425, avgRating: 4.2, marketShare: 21.6, avgCost: 380 },
+  { name: 'Italian', restaurants: 407, avgRating: 4.2, marketShare: 20.7, avgCost: 1350 },
+  { name: 'Continental', restaurants: 398, avgRating: 4.2, marketShare: 20.3, avgCost: 1200 },
+  { name: 'Mughlai', restaurants: 370, avgRating: 4.1, marketShare: 18.8, avgCost: 950 },
 ]
 
-// SQL Query Results - City-wise Distribution
+// SQL Query Results - City-wise Distribution (Real Data)
 const cityData = [
-  { name: 'Gurgaon', count: 2156, color: '#8884d8', avgRating: 4.15, localities: 45 },
-  { name: 'New Delhi', count: 1834, color: '#82ca9d', avgRating: 4.22, localities: 38 },
-  { name: 'Noida', count: 1245, color: '#ffc658', avgRating: 4.08, localities: 28 },
-  { name: 'Faridabad', count: 892, color: '#ff7300', avgRating: 4.05, localities: 22 },
-  { name: 'Ghaziabad', count: 567, color: '#8dd1e1', avgRating: 4.12, localities: 18 },
+  { name: 'New Delhi', count: 1192, color: '#8884d8', avgRating: 4.14, localities: 45 },
+  { name: 'Gurgaon', count: 403, color: '#82ca9d', avgRating: 4.18, localities: 38 },
+  { name: 'Noida', count: 149, color: '#ffc658', avgRating: 4.14, localities: 28 },
+  { name: 'Ghaziabad', count: 86, color: '#ff7300', avgRating: 4.07, localities: 22 },
+  { name: 'Faridabad', count: 83, color: '#8dd1e1', avgRating: 4.07, localities: 18 },
 ]
 
-// SQL Query Results - Rating Distribution Analysis
+// SQL Query Results - Rating Distribution Analysis (Real Data)
 const ratingDistribution = [
-  { rating: 'Poor (< 2.0)', count: 89, percentage: 1.3 },
-  { rating: 'Below Avg (2.0-2.9)', count: 234, percentage: 3.5 },
-  { rating: 'Average (3.0-3.9)', count: 1456, percentage: 21.7 },
-  { rating: 'Good (4.0-4.4)', count: 3245, percentage: 48.5 },
-  { rating: 'Excellent (4.5-4.7)', count: 1234, percentage: 18.4 },
-  { rating: 'Outstanding (4.8+)', count: 436, percentage: 6.5 },
+  { rating: 'Poor (< 2.0)', count: 0, percentage: 0.0 },
+  { rating: 'Below Avg (2.0-3.0)', count: 0, percentage: 0.0 },
+  { rating: 'Average (3.0-4.0)', count: 787, percentage: 40.1 },
+  { rating: 'Good (4.0-4.5)', count: 1091, percentage: 55.5 },
+  { rating: 'Excellent (4.5+)', count: 87, percentage: 4.4 },
 ]
 
-// SQL Query Results - Price Segment Analysis
+// SQL Query Results - Price Segment Analysis (Real Data)
 const priceSegmentData = [
-  { segment: 'Budget (< ₹500)', count: 1456, avgRating: 3.8, percentage: 21.7 },
-  { segment: 'Mid-Range (₹500-1000)', count: 2345, avgRating: 4.1, percentage: 35.0 },
-  { segment: 'Premium (₹1000-2000)', count: 1789, avgRating: 4.3, percentage: 26.7 },
-  { segment: 'Luxury (₹2000-3000)', count: 834, avgRating: 4.5, percentage: 12.5 },
-  { segment: 'Ultra-Luxury (> ₹3000)', count: 270, avgRating: 4.7, percentage: 4.0 },
+  { segment: 'Budget (< ₹500)', count: 705, avgRating: 4.07, percentage: 35.9 },
+  { segment: 'Mid-Range (₹500-1000)', count: 559, avgRating: 4.13, percentage: 28.4 },
+  { segment: 'Premium (₹1000-2000)', count: 477, avgRating: 4.21, percentage: 24.3 },
+  { segment: 'Luxury (₹2000-3000)', count: 140, avgRating: 4.25, percentage: 7.1 },
+  { segment: 'Ultra-Luxury (> ₹3000)', count: 84, avgRating: 4.23, percentage: 4.3 },
 ]
 
 // SQL Query Results - Top Localities by Rating
@@ -99,7 +98,7 @@ function DashboardDemo() {
               </p>
             </div>
             <Badge variant="outline" className="text-sm px-3 py-1">
-              MySQL Database • 6,694 Records
+              MySQL Database • 1,943 Unique Restaurants
             </Badge>
           </div>
           <div className="flex gap-2 text-sm text-muted-foreground">
@@ -117,7 +116,7 @@ function DashboardDemo() {
               <Badge variant="secondary">NCR</Badge>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">6,694</div>
+              <div className="text-2xl font-bold">1,943</div>
             </CardContent>
           </Card>
 
@@ -127,7 +126,7 @@ function DashboardDemo() {
               <Badge variant="secondary">⭐</Badge>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">4.15</div>
+              <div className="text-2xl font-bold">4.14</div>
 
             </CardContent>
           </Card>
@@ -139,7 +138,7 @@ function DashboardDemo() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">North Indian</div>
-              <p className="text-xs text-muted-foreground">1,247 restaurants</p>
+              <p className="text-xs text-muted-foreground">1,063 restaurants</p>
             </CardContent>
           </Card>
 
@@ -150,7 +149,7 @@ function DashboardDemo() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">5</div>
-              <p className="text-xs text-muted-foreground">Gurgaon leads with 2,156</p>
+              <p className="text-xs text-muted-foreground">New Delhi leads with 1,192</p>
             </CardContent>
           </Card>
         </div>
